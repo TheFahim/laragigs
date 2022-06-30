@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
+use GuzzleHttp\Middleware;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +36,8 @@ Route::patch('/listings/{listing}',[ListingController::class,'update'])->middlew
 //Delete 
 Route::delete('/listings/{listing}',[ListingController::class,'delete'])->middleware('auth');
 
+//Manage Listing
+Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
 //single listing
 Route::get('/listings/{listing}',[ListingController::class,'show']);
 
