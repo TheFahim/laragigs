@@ -19,40 +19,39 @@ use GuzzleHttp\Middleware;
 */
 
 //all listings
-Route::get('/',[ListingController::class,'index']);
+Route::get('/', [ListingController::class,'index'])->name('index');
 
 //show create form
-Route::get('/listings/create',[ListingController::class,'create'])->name('create')->middleware('auth');
+Route::get('/listings/create', [ListingController::class,'create'])->name('create')->middleware('auth');
 
 //store listing
-Route::post('/listings',[ListingController::class,'store'])->middleware('auth');
+Route::post('/listings', [ListingController::class,'store'])->name('store')->middleware('auth');
 
 //show edit form
-Route::get('/listings/{listing}/edit',[ListingController::class,'edit'])->middleware('auth');
+Route::get('/listings/{listing}/edit', [ListingController::class,'edit'])->name('edit')->middleware('auth');
 
 //patch submit values to edit
-Route::patch('/listings/{listing}',[ListingController::class,'update'])->middleware('auth');
+Route::patch('/listings/{listing}', [ListingController::class,'update'])->name('patch')->middleware('auth');
 
-//Delete 
-Route::delete('/listings/{listing}',[ListingController::class,'delete'])->middleware('auth');
+//Delete
+Route::delete('/listings/{listing}', [ListingController::class,'delete'])->name('delete')->middleware('auth');
 
 //Manage Listing
-Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
+Route::get('/listings/manage', [ListingController::class, 'manage'])->name('manage')->middleware('auth');
 //single listing
-Route::get('/listings/{listing}',[ListingController::class,'show']);
+Route::get('/listings/{listing}', [ListingController::class,'show'])->name('show');
 
 //show register create form
-Route::get('/register',[UserController::class,'create'])->middleware('guest');
+Route::get('/register', [UserController::class,'create'])->name('register')->middleware('guest');
 
 //create new user
-Route::post('/users', [UserController::class, 'store']);
+Route::post('/users', [UserController::class, 'store'])->name('user.create');
 
 //logout
-Route::post('/logout',[UserController::class,'logout'])->middleware('auth');
+Route::post('/logout', [UserController::class,'logout'])->name('logout')->middleware('auth');
 
 //show login
-Route::get('/login',[UserController::class,'login'])->name('login')->middleware('guest');
+Route::get('/login', [UserController::class,'login'])->name('login')->middleware('guest');
 
 // user login
-Route::post('/users/authenticate',[UserController::class,'authenticate']);
-
+Route::post('/users/authenticate', [UserController::class,'authenticate'])->name('authenticate');
