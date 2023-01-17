@@ -16,7 +16,7 @@
                         <td
                             class="px-4 py-8 border-t border-b border-gray-300 text-lg"
                         >
-                            <a href="show.html">
+                            <a href="{{route('show',['listing',$listing->id])}}">
                                 {{$listing->title}}
                             </a>
                         </td>
@@ -24,7 +24,7 @@
                             class="px-4 py-8 border-t border-b border-gray-300 text-lg"
                         >
                             <a
-                                href="/listings/{{$listing->id}}/edit"
+                                href="{{route('edit',[$listing->id])}}"
                                 class="text-blue-400 px-6 py-2 rounded-xl"
                                 ><i
                                     class="fa-solid fa-pen-to-square"
@@ -35,14 +35,14 @@
                         <td
                             class="px-4 py-8 border-t border-b border-gray-300 text-lg"
                         >
-                            <form method="POST" action="/listings/{{$listing->id}}">
+                            <form method="POST" action="{{route('delete',[$listing->id])}}">
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
                             </form>
                         </td>
-                    </tr>  
-                @endforeach 
+                    </tr>
+                @endforeach
                 @else
                 <tr class="border-gray-300">
                     <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">

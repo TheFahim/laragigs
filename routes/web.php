@@ -31,7 +31,7 @@ Route::post('/listings', [ListingController::class,'store'])->name('store')->mid
 Route::get('/listings/{listing}/edit', [ListingController::class,'edit'])->name('edit')->middleware('auth');
 
 //patch submit values to edit
-Route::patch('/listings/{listing}', [ListingController::class,'update'])->name('patch')->middleware('auth');
+Route::patch('/listings/{listing}', [ListingController::class,'update'])->name('update')->middleware('auth');
 
 //Delete
 Route::delete('/listings/{listing}', [ListingController::class,'delete'])->name('delete')->middleware('auth');

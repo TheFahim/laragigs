@@ -30,7 +30,7 @@ class UserController extends Controller
         // Login
         auth()->login($user);
 
-        return redirect()->route('admin.dashboard')->with('message', 'User created and logged in');
+        return redirect()->route('index')->with('message', 'User created and logged in');
     }
 
     //logout user
@@ -41,7 +41,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('message', 'You have been logged Out');
+        return redirect()->route('index')->with('message', 'You have been logged Out');
     }
 
     //login view page
@@ -61,7 +61,7 @@ class UserController extends Controller
         if (auth()->attempt($formFields)) {
             $request->session()->regenerate();
 
-            return redirect('/')->with('message', 'You are logged in');
+            return redirect()->route('index')->with('message', 'You are logged in');
         }
 
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');

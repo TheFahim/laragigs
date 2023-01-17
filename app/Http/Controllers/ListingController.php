@@ -7,41 +7,46 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
-
 class ListingController extends Controller
 {
     // show all listing
-    public function index(){
-        return view('listings.index',[
+    public function index()
+    {
+        return view('listings.index', [
             'listings' => Listing::latest()->filter(request(['tag','search']))->paginate(6)
         ]);
     }
 
     //show single listing
-    public function show(Listing $listing){
-        return view('listings.show',[
+    public function show(Listing $listing)
+    {
+        return view('listings.show', [
             'listing' => $listing
         ]);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('listings.create');
     }
 
     //store listing data
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        // dd($request);
         $formFields = $request->validate([
             'title' => 'required',
-            'company' => ['required', Rule::unique('listings','company')],
+            'company' => ['required', Rule::unique('listings', 'company')],
             'location' => 'required',
             'website' => 'required','website',
             'email' => ['required','email'],
             'tags' => 'required',
-            'description' => 'required'
-        ]); 
+            'description' => 'required',
+            'deadline' => ['nullable']
+        ]);
 
         if ($request->hasFile('logo')) {
-            $formFields['logo'] = $request->file('logo')->store('logos','public');
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
         //add user relation to the database
@@ -49,19 +54,20 @@ class ListingController extends Controller
 
         Listing::create($formFields);
 
-        return redirect('/')->with('message','Listing Creatd Successfully');
+        return redirect()->route('index')->with('message', 'Listing Creatd Successfully');
     }
 
-    public function edit(Listing $listing){
-        
-        return view('listings.edit',['listing' => $listing]);
+    public function edit(Listing $listing)
+    {
+        return view('listings.edit', ['listing' => $listing]);
     }
 
     //update/edit
-    public function update(Request $request, Listing $listing){
+    public function update(Request $request, Listing $listing)
+    {
         //only logged in user can edit
         if ($listing->user_id != auth()->id()) {
-            abort(403,'Unauthorized Action');
+            abort(403, 'Unauthorized Action');
         }
 
         $formFields = $request->validate([
@@ -71,36 +77,38 @@ class ListingController extends Controller
             'website' => 'required','website',
             'email' => ['required','email'],
             'tags' => 'required',
-            'description' => 'required'
-        ]); 
+            'description' => 'required',
+            'deadline' => 'nullable',
+            'deadline' => ['nullable','datetime:d/m/y']
+        ]);
 
 
 
         if ($request->hasFile('logo')) {
-            $formFields['logo'] = $request->file('logo')->store('logos','public');
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
         $listing->update($formFields);
 
-        return back()->with('message','Listing Updated Successfully');
-
+        return back()->with('message', 'Listing Updated Successfully');
     }
 
     //delete listing
-    public function delete(Listing $listing){
+    public function delete(Listing $listing)
+    {
         //only logged in user can delete
         if ($listing->user_id != auth()->id()) {
-            abort(403,'Unauthorized Action');
+            abort(403, 'Unauthorized Action');
         }
 
         $listing->delete();
-        return redirect('/')->with('message','Listing Deleted Successfully');
+        return redirect()->route('index')->with('message', 'Listing Deleted Successfully');
     }
 
 
     //manage method
-    public function manage() {
+    public function manage()
+    {
         return view('listings.manage', ['listings' => auth()->user()->listings()->get()]);
     }
 }
-

@@ -38,11 +38,11 @@
                      </span>
                 </li>
                 <li>
-                    <a href="/listings/manage" class="hover:text-laravel"><i class="fa-solid fa-gear"></i>
+                    <a href="{{route('manage')}}" class="hover:text-laravel"><i class="fa-solid fa-gear"></i>
                     Manage Listings  </a>
                 </li>
                 <li>
-                    <form class="inline" method="POST" action="/logout">
+                    <form class="inline" method="POST" action="{{route('logout')}}">
                         @csrf
                         <button type="submit">
                           <i class="fa-solid fa-door-closed"></i> Logout
@@ -51,10 +51,10 @@
                 </li>
                 @else
                 <li>
-                    <a href="/register" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i> Register</a>
+                    <a href="{{route('register')}}" class="hover:text-laravel"><i class="fa-solid fa-user-plus"></i> Register</a>
                 </li>
                 <li>
-                    <a href="/login" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    <a href="{{route('login')}}" class="hover:text-laravel"><i class="fa-solid fa-arrow-right-to-bracket"></i>
                         Login</a
                     >
                 </li>

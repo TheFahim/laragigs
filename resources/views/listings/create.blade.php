@@ -8,7 +8,7 @@
             <p class="mb-4">Post a gig to find a developer</p>
         </header>
 
-        <form method="POST" action="/listings" enctype="multipart/form-data">
+        <form method="POST" action="{{route('store')}}" enctype="multipart/form-data">
             @csrf
             <div class="mb-6">
                 <label
@@ -110,6 +110,19 @@
                 <p class="text-red-500 text-xs mt1">{{$message}}</p>
                 @enderror
             </div>
+            <div class="mb-6">
+                <label for="tags" class="inline-block text-lg mb-2">
+                    deadline
+                </label>
+                <input
+                    type="date"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="deadline"
+                />
+                @error('deadline')
+                <p class="text-red-500 text-xs mt1">{{$message}}</p>
+                @enderror
+            </div>
 
             <div class="mb-6">
                 <label for="logo" class="inline-block text-lg mb-2">
@@ -137,7 +150,7 @@
                     name="description"
                     rows="10"
                     placeholder="Include tasks, requirements, salary, etc"
-                    
+
                 >{{old('description')}}</textarea>
                 @error('description')
                 <p class="text-red-500 text-xs mt1">{{$message}}</p>
@@ -151,7 +164,7 @@
                     Create Gig
                 </button>
 
-                <a href="/" class="text-black ml-4"> Back </a>
+                <a href="{{route('index')}}" class="text-black ml-4"> Back </a>
             </div>
         </form>
     </x-card>

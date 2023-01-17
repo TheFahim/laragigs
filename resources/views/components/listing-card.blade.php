@@ -9,12 +9,17 @@
         />
         <div>
             <h3 class="text-2xl">
-                <a href="/listings/{{$listing->id}}">{{$listing->title}}</a>
+                <a href="{{route('show',['listing' => $listing -> id])}}">{{$listing->title}}</a>
             </h3>
             <div class="text-xl font-bold mb-4">{{$listing->company}}</div>
             <x-listing-tags :tagsCSV="$listing->tags"/>
             <div class="text-lg mt-4">
-                <i class="fa-solid fa-location-dot"></i>{{$listing->location}}
+                <i class="fa-solid fa-location-dot"></i>
+                 {{$listing->location}}
+            </div>
+            <div class="text-lg mt-4">
+                <i class="fa fa-calendar"></i>
+                Deadline : {{$listing->deadline ?? "unknown"}}
             </div>
         </div>
     </div>
